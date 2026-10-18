@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CASE CLOSED — The College Mystery | Detective Investigation Simulator</title>
+  <meta name="description" content="An interactive detective investigation simulator powered by C Data Structures and Algorithms. Solve the case of the stolen Golden Minerva Trophy.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Confidential Status Bar -->
+  <header class="top-bar">
+    <div class="top-bar-left">
+      <span class="badge-classified">TOP SECRET // CLASSIFIED</span>
+      <span class="dossier-id">CASE REF: #2026-FEST-MINERVA</span>
+    </div>
+    <div class="top-bar-right">
+      <span class="status-indicator"><span class="pulse-dot"></span> INVESTIGATION ACTIVE</span>
+      <span class="system-tag">C &amp; DSA MINI-PROJECT SIMULATOR</span>
+    </div>
+  </header>
+
+  <!-- Navigation Bar -->
+  <nav class="main-nav" id="mainNav">
+    <div class="nav-brand">
+      <span class="brand-icon">&#128373;</span>
+      <div>
+        <h1 class="brand-title">CASE CLOSED</h1>
+        <p class="brand-subtitle">The College Mystery</p>
+      </div>
+    </div>
+    <ul class="nav-links">
+      <li><button class="nav-btn active" data-target="dashboard">Dashboard</button></li>
+      <li><button class="nav-btn" data-target="suspects">Suspect Board</button></li>
+      <li><button class="nav-btn" data-target="evidence">Evidence Room</button></li>
+      <li><button class="nav-btn" data-target="ranking">Evidence Ranking</button></li>
+      <li><button class="nav-btn" data-target="resolution">Case Resolution</button></li>
+      <li><button class="nav-btn code-tab" data-target="cbridge">C Source &amp; DSA</button></li>
+    </ul>
+  </nav>
+
+  <!-- Main Content Container -->
+  <main class="content-container">
+
+    <!-- SCREEN A: CASE DASHBOARD -->
+    <section id="dashboard" class="screen-section active">
+      <div class="hero-dossier">
+        <div class="case-stamp">CONFIDENTIAL</div>
+        
+        <div class="hero-header">
+          <p class="case-meta-tag">&#128197; OCT 17, 2026 | INCIDENT REPORT #841 | DEAN'S OFFICE</p>
+          <h2 class="hero-title">CASE CLOSED: <span>The College Mystery</span></h2>
+          <p class="hero-tagline">The Golden Minerva Cultural Fest Trophy has vanished from the locked Dean's Display Cabinet.</p>
+        </div>
+
+        <div class="incident-grid">
+          <div class="incident-card">
+            <h3><span class="icon">&#127942;</span> The Stolen Artifact</h3>
+            <p><strong>The Golden Minerva Trophy:</strong> Handcrafted 24-karat gold-plated college heritage emblem valued at &#8377;1,50,000. It was scheduled for the Grand Gala Award Ceremony at 9:15 PM.</p>
+          </div>
+          <div class="incident-card">
+            <h3><span class="icon">&#9200;</span> Crime Window</h3>
+            <p><strong>8:00 PM &ndash; 9:00 PM:</strong> During the deafening Battle of the Bands concert on the main college grounds. The crime scene showed no forced glass breakage&mdash;the electronic door latch was bypassed.</p>
+          </div>
+          <div class="incident-card">
+            <h3><span class="icon">&#128100;</span> Suspect Pool</h3>
+            <p><strong>Five Individuals:</strong> Five key fest organizers and finalists possessed the necessary knowledge, proximity, or access passes. You must scrutinize their alibis, forensic clues, and suspect records.</p>
+          </div>
+          <div class="incident-card">
+            <h3><span class="icon">&#9874;</span> Detective Methodology</h3>
+            <p><strong>Data Structures in Action:</strong> Suspect records are encapsulated in C <code>struct Suspect</code> entities, interrogated via <strong>Linear Search</strong>, and prioritized via descending <strong>Bubble Sort</strong>.</p>
+          </div>
+        </div>
+
+        <div class="briefing-box">
+          <h4>Investigator's Directives:</h4>
+          <ol class="briefing-list">
+            <li><strong>Cross-Examine:</strong> Search suspects by their assigned IDs (101 &ndash; 105) to check alibis.</li>
+            <li><strong>Inspect Forensics:</strong> Scrutinize 5 physical crime scene clues in the Evidence Room.</li>
+            <li><strong>Sort the Evidence:</strong> Observe how Bubble Sort ranks suspects by accumulated forensic suspicion points.</li>
+            <li><strong>Unmask the Culprit:</strong> Reveal the conclusive resolution supported by undisputed physical and digital proof.</li>
+          </ol>
+        </div>
+
+        <div class="dashboard-cta">
+          <button class="btn btn-primary" id="btnStartInvestigation">
+            <span class="btn-icon">&#128065;</span> Start Investigation
+          </button>
+          <button class="btn btn-secondary" id="btnQuickDemo">
+            <span class="btn-icon">&#9881;</span> View C Program Details
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN B: SUSPECT BOARD -->
+    <section id="suspects" class="screen-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Suspect Board</h2>
+          <p class="section-desc">Examine suspect dossiers stored in the sequential structure array. Search records by ID using Linear Search.</p>
+        </div>
+        <div class="search-box">
+          <label for="suspectSearchInput" class="search-label">&#128269; Linear Search by ID:</label>
+          <div class="search-input-group">
+            <input type="number" id="suspectSearchInput" placeholder="Enter ID (e.g. 101-105)" min="100" max="999">
+            <button class="btn btn-accent" id="btnSearchSuspect">Search</button>
+            <button class="btn btn-ghost" id="btnResetSearch">Reset</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Linear Search Visualization Banner -->
+      <div id="searchFeedback" class="search-feedback hidden"></div>
+
+      <!-- Suspect Cards Grid -->
+      <div class="suspect-grid" id="suspectGrid">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </section>
+
+    <!-- SCREEN C: EVIDENCE ROOM -->
+    <section id="evidence" class="screen-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Evidence Room &amp; Forensics</h2>
+          <p class="section-desc">Analyze five physical pieces of evidence recovered from the Dean's Office, locks, vehicle logs, and campus grounds.</p>
+        </div>
+        <div class="evidence-filter">
+          <span class="filter-label">Filter Clues:</span>
+          <button class="btn-filter active" data-filter="all">All Clues (5)</button>
+          <button class="btn-filter" data-filter="contradiction">Contradictions</button>
+          <button class="btn-filter" data-filter="physical">Physical Forensics</button>
+        </div>
+      </div>
+
+      <!-- Clues Grid -->
+      <div class="clues-grid" id="cluesGrid">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </section>
+
+    <!-- SCREEN D: EVIDENCE RANKING -->
+    <section id="ranking" class="screen-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Evidence Ranking (Bubble Sort)</h2>
+          <p class="section-desc">Suspects sorted in descending order of accumulated evidence points using the Bubble Sort algorithm.</p>
+        </div>
+        <div class="ranking-controls">
+          <button class="btn btn-accent" id="btnRunSortAnimation">
+            <span class="btn-icon">&#9654;</span> Run Bubble Sort Trace
+          </button>
+        </div>
+      </div>
+
+      <div class="ranking-disclaimer">
+        <span class="disclaimer-badge">EDUCATIONAL SIMULATION</span>
+        <p>Evidence points represent simulated forensic weightings assigned to physical evidence, biometric stamps, and contradicted alibis in this academic mini-project.</p>
+      </div>
+
+      <!-- Prime Suspect Banner -->
+      <div class="prime-suspect-banner" id="primeSuspectBanner">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Ranked Leaderboard Table / Cards -->
+      <div class="ranking-container">
+        <div class="ranking-table-card">
+          <table class="ranking-table">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>ID</th>
+                <th>Suspect Name</th>
+                <th>Fest Role</th>
+                <th>Evidence Points</th>
+                <th>Suspicion Level</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="rankingTableBody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Bubble Sort Step Explanation Box -->
+        <div class="algo-explanation-card">
+          <h3><span class="icon">&#129518;</span> Bubble Sort Execution Logic</h3>
+          <p class="code-quote"><code>if (suspects[j].evidencePoints &lt; suspects[j + 1].evidencePoints) { swap(); }</code></p>
+          <ul class="algo-points">
+            <li><strong>Order:</strong> Descending (Highest evidence points at Rank #1).</li>
+            <li><strong>Total Elements (\(n\)):</strong> 5 suspects.</li>
+            <li><strong>Passes Required (\(n-1\)):</strong> 4 outer loop passes.</li>
+            <li><strong>Worst-case Comparisons:</strong> \(\frac{n(n-1)}{2} = \frac{5 \times 4}{2} = 10\) comparisons.</li>
+            <li><strong>Space Complexity:</strong> \(O(1)\) In-place auxiliary space.</li>
+          </ul>
+          <div id="sortTraceLog" class="sort-trace-log">
+            Click <strong>"Run Bubble Sort Trace"</strong> to watch the pairwise swaps bubble the prime suspect to the top!
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN E: CASE RESOLUTION -->
+    <section id="resolution" class="screen-section">
+      <div class="resolution-container">
+        
+        <div class="resolution-header">
+          <div class="classified-stamp-large">CASE RESOLVED</div>
+          <h2 class="resolution-title">Culprit Revealed: <span>Rohan (ID: 103)</span></h2>
+          <p class="resolution-subtitle">Debate Finalist &amp; Runner-up | Forensic Suspicion Score: 85 / 100</p>
+        </div>
+
+        <div class="culprit-dossier-card">
+          <div class="culprit-photo-col">
+            <div class="mugshot-frame">
+              <div class="mugshot-placeholder">
+                <span class="mugshot-icon">&#128100;</span>
+                <span class="culprit-id-tag">ID: 103</span>
+              </div>
+              <div class="mugshot-label">ACCUSED: ROHAN</div>
+            </div>
+            <div class="culprit-quick-stats">
+              <div class="stat-row"><span>Status:</span> <strong class="text-danger">Confessed</strong></div>
+              <div class="stat-row"><span>Evidence:</span> <strong class="text-gold">85 Pts (Rank 1)</strong></div>
+              <div class="stat-row"><span>Trophy:</span> <strong class="text-success">Recovered</strong></div>
+            </div>
+          </div>
+
+          <div class="culprit-details-col">
+            <div class="resolution-block">
+              <h3><span class="icon">&#127919;</span> Motive &amp; Psychology</h3>
+              <p>Rohan spent 8 months preparing for the Inter-College Debate Championship. When the judges awarded first prize to the rival university team by a narrow margin, Rohan became bitter and convinced the outcome was rigged. He resolved that if he could not lift the Golden Minerva Trophy, no one would.</p>
+            </div>
+
+            <div class="resolution-block">
+              <h3><span class="icon">&#128269;</span> The Decisive Evidence Trail</h3>
+              <ul class="evidence-trail-list">
+                <li>
+                  <strong>1. Shattered Alibi:</strong> Rohan claimed he left campus in anger at 7:30 PM. However, Security Gate Barrier Log #3 confirms his Honda City (DL-08-AB-4412) exited at 9:30 PM.
+                </li>
+                <li>
+                  <strong>2. Digital Footprint:</strong> Facilities Master Keycard #4 was checked out by Rohan at 5:00 PM for "debate rehearsals" and was logged unlocking the trophy room door at 8:22 PM.
+                </li>
+                <li>
+                  <strong>3. Forensic Fiber Match:</strong> Dark green wool-polyester thread recovered from the cabinet brass latch matches the official Debate Finalist blazer worn by Rohan.
+                </li>
+                <li>
+                  <strong>4. Eyewitness Photography:</strong> Campus photographer Kabir captured a candid window photo at 8:26 PM showing a figure in a green blazer packing the trophy into a sports duffel.
+                </li>
+                <li>
+                  <strong>5. Soil Impression:</strong> Muddy size 10 Converse footprints at the pedestal match the red garden clay on Rohan's shoes.
+                </li>
+              </ul>
+            </div>
+
+            <div class="resolution-block">
+              <h3><span class="icon">&#128680;</span> Final Outcome</h3>
+              <p>Confronted with the gate logs and microscopic textile fiber matches, Rohan confessed. The Golden Minerva Trophy was recovered undamaged from the trunk of his vehicle. The Dean commended the investigative team.</p>
+            </div>
+
+            <div class="resolution-actions">
+              <button class="btn btn-primary" id="btnRestartInvestigation">
+                <span class="btn-icon">&#10227;</span> Restart Investigation
+              </button>
+              <button class="btn btn-secondary" id="btnViewDSAExplanation">
+                <span class="btn-icon">&#128218;</span> Study DSA &amp; C Algorithms
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SCREEN F: C SOURCE CODE & DSA BRIDGE -->
+    <section id="cbridge" class="screen-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">C Source Code &amp; DSA Architecture</h2>
+          <p class="section-desc">Inspect how the actual C program (<code>case.c</code>) implements Data Structures &amp; Algorithms for college viva presentation.</p>
+        </div>
+        <div class="cbridge-actions">
+          <a href="case.c" download="case.c" class="btn btn-accent">
+            <span class="btn-icon">&#128190;</span> Download case.c
+          </a>
+        </div>
+      </div>
+
+      <div class="code-tabs-container">
+        <div class="code-tabs-nav">
+          <button class="code-tab-btn active" data-code="struct">1. struct Suspect</button>
+          <button class="code-tab-btn" data-code="linear">2. Linear Search Algorithm</button>
+          <button class="code-tab-btn" data-code="bubble">3. Bubble Sort Algorithm</button>
+          <button class="code-tab-btn" data-code="complexity">4. Complexity Analysis</button>
+        </div>
+
+        <div class="code-content-wrapper">
+          <!-- Code Block 1: Struct -->
+          <div class="code-panel active" id="code-struct">
+            <div class="code-header">
+              <span>Data Structure: Heterogeneous Record Encapsulation</span>
+              <span class="file-tag">case.c: Lines 28-36</span>
+            </div>
+            <pre><code>/* Structure definition to store all attributes of a suspect */
+struct Suspect {
+    int id;                         /* Unique numeric identifier (101 - 105) */
+    char name[MAX_NAME_LEN];        /* Full name of suspect */
+    char role[MAX_ROLE_LEN];        /* College fest role / designation */
+    char alibi[MAX_TEXT_LEN];       /* Statement regarding whereabouts */
+    int evidencePoints;             /* Accumulated forensic suspicion points (0-100) */
+    char primaryClue[MAX_TEXT_LEN]; /* Physical evidence / forensic finding */
+};
+
+/* Array of structures storing 5 suspects sequentially */
+struct Suspect suspects[TOTAL_SUSPECTS];</code></pre>
+            <div class="code-notes">
+              <strong>College Viva Insight:</strong> A structure (<code>struct</code>) groups heterogeneous data types (integers, strings) under a single record name, allowing contiguous memory allocation for all 5 suspect profiles.
+            </div>
+          </div>
+
+          <!-- Code Block 2: Linear Search -->
+          <div class="code-panel" id="code-linear">
+            <div class="code-header">
+              <span>Algorithm 1: Linear Search by Suspect ID</span>
+              <span class="file-tag">case.c: Lines 201-209</span>
+            </div>
+            <pre><code>/* Linear Search scans the array sequentially from index 0 to n-1.
+ * Returns array index if targetId matches, otherwise returns -1.
+ */
+int linearSearchById(const struct Suspect suspects[], int n, int targetId) {
+    int i;
+    for (i = 0; i &lt; n; i++) {
+        if (suspects[i].id == targetId) {
+            return i; /* Target found at index i */
+        }
+    }
+    return -1; /* Target not found after complete array scan */
+}</code></pre>
+            <div class="code-notes">
+              <strong>College Viva Insight:</strong> Linear Search iterates element-by-element with \(O(n)\) time complexity. It requires no sorting precondition, making it ideal for unordered database records.
+            </div>
+          </div>
+
+          <!-- Code Block 3: Bubble Sort -->
+          <div class="code-panel" id="code-bubble">
+            <div class="code-header">
+              <span>Algorithm 2: Bubble Sort in Descending Order</span>
+              <span class="file-tag">case.c: Lines 220-234</span>
+            </div>
+            <pre><code>/* Bubble Sort compares adjacent suspects and swaps them if the left
+ * suspect has FEWER evidence points than the right suspect.
+ * This bubbles higher scores to the front (descending order).
+ */
+void bubbleSortByEvidenceDesc(struct Suspect suspects[], int n) {
+    int i, j;
+    struct Suspect temp;
+
+    for (i = 0; i &lt; n - 1; i++) {
+        for (j = 0; j &lt; n - i - 1; j++) {
+            /* Descending check: swap if current is smaller than next */
+            if (suspects[j].evidencePoints &lt; suspects[j + 1].evidencePoints) {
+                temp = suspects[j];
+                suspects[j] = suspects[j + 1];
+                suspects[j + 1] = temp;
+            }
+        }
+    }
+}</code></pre>
+            <div class="code-notes">
+              <strong>College Viva Insight:</strong> By reversing the comparison operator to <code>&lt;</code>, the element with the highest suspicion score bubbles to index 0 on the very first pass.
+            </div>
+          </div>
+
+          <!-- Code Block 4: Complexity -->
+          <div class="code-panel" id="code-complexity">
+            <div class="code-header">
+              <span>Time &amp; Space Complexity Summary</span>
+              <span class="file-tag">Theory &amp; Viva Assessment</span>
+            </div>
+            <div class="complexity-table-wrapper">
+              <table class="complexity-table">
+                <thead>
+                  <tr>
+                    <th>Algorithm</th>
+                    <th>Best Case</th>
+                    <th>Average Case</th>
+                    <th>Worst Case</th>
+                    <th>Space Complexity</th>
+                    <th>Stability</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Linear Search</strong></td>
+                    <td>\(\mathcal{O}(1)\) (First element)</td>
+                    <td>\(\mathcal{O}(n)\)</td>
+                    <td>\(\mathcal{O}(n)\) (Last / not found)</td>
+                    <td>\(\mathcal{O}(1)\) Auxiliary</td>
+                    <td>Stable</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Bubble Sort</strong></td>
+                    <td>\(\mathcal{O}(n)\) (Optimized flag)</td>
+                    <td>\(\mathcal{O}(n^2)\)</td>
+                    <td>\(\mathcal{O}(n^2)\)</td>
+                    <td>\(\mathcal{O}(1)\) In-place</td>
+                    <td>Stable</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="code-notes">
+              <strong>Why Bubble Sort for \(N=5\)?</strong> For small datasets (\(N \le 10\)), the overhead of \(O(n \log n)\) recursive algorithms like QuickSort or MergeSort is unnecessary. Bubble Sort is straightforward to implement, requires zero extra heap memory, and guarantees stability.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Suspect Detail Dossier Modal -->
+  <div id="suspectModal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="badge-modal">POLICE DOSSIER</span>
+          <h3 id="modalSuspectName" class="modal-name">Suspect Name</h3>
+          <p id="modalSuspectRole" class="modal-role">Role</p>
+        </div>
+        <button class="modal-close-btn" id="btnCloseModal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-field">
+          <span class="modal-label">Suspect ID:</span>
+          <span id="modalSuspectId" class="modal-value-id">101</span>
+        </div>
+        <div class="modal-field">
+          <span class="modal-label">Alibi Statement:</span>
+          <p id="modalSuspectAlibi" class="modal-alibi">Alibi text here...</p>
+        </div>
+        <div class="modal-field">
+          <span class="modal-label">Forensic Clue &amp; Findings:</span>
+          <p id="modalSuspectClue" class="modal-clue">Clue text here...</p>
+        </div>
+        <div class="modal-field">
+          <span class="modal-label">Accumulated Evidence Score:</span>
+          <div class="score-bar-wrapper">
+            <div id="modalScoreBar" class="score-bar-fill" style="width: 50%;"></div>
+            <span id="modalScoreText" class="score-text">50 / 100</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btnModalClose">Close Dossier</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Clue Inspection Modal -->
+  <div id="clueModal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="badge-modal evidence-badge">FORENSIC CLUE FILE</span>
+          <h3 id="modalClueTitle" class="modal-name">Clue Title</h3>
+          <p id="modalClueLocation" class="modal-role">Location</p>
+        </div>
+        <button class="modal-close-btn" id="btnCloseClueModal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-field">
+          <span class="modal-label">Physical Description &amp; Lab Analysis:</span>
+          <p id="modalClueDesc" class="modal-clue">Description...</p>
+        </div>
+        <div class="modal-field">
+          <span class="modal-label">Investigative Relation:</span>
+          <p id="modalClueRelation" class="modal-alibi">Relation...</p>
+        </div>
+        <div class="modal-field">
+          <span class="modal-label">Impact on Suspects:</span>
+          <p id="modalClueImpact" class="modal-clue impact-text">Impact...</p>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btnClueModalClose">Close Clue File</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-content">
+      <p><strong>CASE CLOSED &mdash; The College Mystery</strong> | College Mini-Project in C &amp; Data Structures</p>
+      <p class="footer-credits">Pure C99 Backend Program (<code>case.c</code>) &bull; Vanilla HTML/CSS/JS Demonstration Interface &bull; Zero External Dependencies</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
