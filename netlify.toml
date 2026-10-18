@@ -1,0 +1,13 @@
+# Netlify configuration file for CASE CLOSED — The College Mystery
+[build]
+  # Publish directory containing index.html, style.css, app.js
+  publish = "."
+  # No build command required since this is a pure HTML/CSS/JavaScript client demo
+  command = ""
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
